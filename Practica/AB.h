@@ -17,6 +17,7 @@ class AB {
         void inorden() const;
         //friend std::ostream& operator<<(std::ostream& os, const NodoB<Key> *raiz);
         void Print(NodoB<Key> *raiz, int nivel);
+        void Imprimir();
         void Podar(NodoB<Key>* &nodo);
 
         bool Vacio(NodoB<Key> *nodo);
@@ -27,11 +28,12 @@ class AB {
 
         bool Equilibrado(NodoB<Key> *nodo);
         bool Equilibrado();
+        void inorden2(NodoB<Key> *nodo);
 
     protected:
         void setRaiz(Key nodo_padre, NodoB<Key> nodo_hijo1, NodoB<Key> nodo_hijo2);
         void setRaiz(NodoB<Key> raiz) {raiz_ = raiz;}
-        NodoB<Key> getRaiz() {return raiz_;}
+        NodoB<Key>* getRaiz() {return raiz_;}
 
     private:
         NodoB<Key> *raiz_;
@@ -71,6 +73,11 @@ bool AB<Key>::Hoja(NodoB<Key> *nodo) {
         return true;
     }
     return false;
+}
+
+template<class Key>
+void AB<Key>::Imprimir() {
+    Print(raiz_, 0);
 }
 
 /*template<class Key>
@@ -139,7 +146,17 @@ void AB<Key>::Print(NodoB<Key> *raiz, int nivel) {
 
 template<class Key>
 void AB<Key>::inorden() const {
-    std::cout << "INORDEN PRUEBA" << std::endl;
+    inorden2(getRaiz());
+}
+
+template<class Key>
+void AB<Key>::inorden2(NodoB<Key> *nodo) {
+    if (nodo == NULL) {
+        inorden2(nodo->getNodoIzq());
+        std::cout << "[" << nodo-> getDato() << "]";
+        inorden2(nodo->getNodoDer());
+
+    }
 }
 
 
