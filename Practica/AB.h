@@ -28,12 +28,13 @@ class AB {
 
         bool Equilibrado(NodoB<Key> *nodo);
         bool Equilibrado();
-        void inorden2(NodoB<Key> *nodo);
+        const void inorden2(NodoB<Key> nodo) const;
 
     protected:
         void setRaiz(Key nodo_padre, NodoB<Key> nodo_hijo1, NodoB<Key> nodo_hijo2);
         void setRaiz(NodoB<Key> raiz) {raiz_ = raiz;}
         NodoB<Key>* getRaiz() {return raiz_;}
+        NodoB<Key> getRaiz2() {return raiz_;}
 
     private:
         NodoB<Key> *raiz_;
@@ -53,8 +54,8 @@ void AB<Key>::Podar(NodoB<Key>* &nodo) {
         return;
     }
 
-    Podar(nodo->izdo_);
-    Podar(nodo->dcho_);
+    Podar(nodo->getNodoIzq());
+    Podar(nodo->getNodoDer());
     delete nodo;
     nodo = NULL;
 }
@@ -69,7 +70,7 @@ bool AB<Key>::Vacio(NodoB<Key> *nodo) {
 
 template<class Key>
 bool AB<Key>::Hoja(NodoB<Key> *nodo) {
-    if (!(nodo->dcho_) && !(nodo->izdo_)) {
+    if (!(nodo->getNodoDer()) && !(nodo->getNodoIzq())) {
         return true;
     }
     return false;
@@ -137,8 +138,8 @@ void AB<Key>::Print(NodoB<Key> *raiz, int nivel) {
         raiz->getDato();
         std::cout << "]";
     } else if (nivel > 1) {
-        Print(raiz->izdo_, nivel-1);
-        Print(raiz->dcho_, nivel-1);
+        Print(raiz->getNodoIzq(), nivel-1);
+        Print(raiz->getNodoDer(), nivel-1);
     }
 
 }
@@ -146,13 +147,13 @@ void AB<Key>::Print(NodoB<Key> *raiz, int nivel) {
 
 template<class Key>
 void AB<Key>::inorden() const {
-    inorden2(getRaiz());
+    inorden2(getRaiz2());
 }
 
 template<class Key>
-void AB<Key>::inorden2(NodoB<Key> *nodo) {
+const void AB<Key>::inorden2(NodoB<Key> nodo) const {
     if (nodo == NULL) {
-        inorden2(nodo->getNodoIzq());
+        inorden2(nodo->getRaiz()->getNodoIzq());
         std::cout << "[" << nodo-> getDato() << "]";
         inorden2(nodo->getNodoDer());
 
@@ -171,9 +172,9 @@ bool AB<Key>::Equilibrado(NodoB<Key> *nodo) {
     if (nodo == NULL) {
         return true;
     }
-    int equilibrio = Tamano(nodo->izdo_) - Tamano(nodo->dcho_);
+    int equilibrio = Tamano(nodo->izdo_) - Tamano(nodo->getNodoDer());
     if (equilibrio == 1) {
-        return (Equilibrado(nodo->izdo_) && Equilibrado(nodo->dcho_));
+        return (Equilibrado(nodo->izdo_) && Equilibrado(nodo->getNodoDer()));
     } 
 
     return false;
@@ -183,7 +184,7 @@ bool AB<Key>::Equilibrado(NodoB<Key> *nodo) {
 template<class Key>
 int AB<Key>::Tamano(NodoB<Key> *nodo) {
     if (nodo != NULL) {
-        return (1 + Tamano(nodo->dcho_) + Tamano(nodo->izdo_));
+        return (1 + Tamano(nodo->getNodoDer()) + Tamano(nodo->getNodoIzq()));
     }
     return 0;
 }
@@ -193,9 +194,9 @@ bool AB<Key>::Equilibrado() {
     if (raiz_ == NULL) {
         return true;
     }
-    int equilibrio = Tamano(raiz_->izdo_) - Tamano(raiz_->dcho_);
+    int equilibrio = Tamano(raiz_->getNodoIzq()) - Tamano(raiz_->getNodoDer());
     if (equilibrio == 1) {
-        return (Equilibrado(raiz_->izdo_) && Equilibrado(raiz_->dcho_));
+        return (Equilibrado(raiz_->getNodoIzq()) && Equilibrado(raiz_->getNodoDer()));
     } 
 
     return false;
@@ -204,7 +205,7 @@ bool AB<Key>::Equilibrado() {
 template<class Key>
 int AB<Key>::Tamano() {
     if (raiz_ != NULL) {
-        return (1 + Tamano(raiz_->dcho_) + Tamano(raiz_->izdo_));
+        return (1 + Tamano(raiz_->getNodoDer()) + Tamano(raiz_->getNodoIzq()));
     }
     return 0;
 }

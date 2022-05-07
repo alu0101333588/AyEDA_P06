@@ -1,14 +1,16 @@
 #include <iostream>
-#include "NodoB.h"
-#include "AB.h"
+#include "ABE.h"
 
 using Key = int;
 
 int main() {
     int opcion = -1;
-    AB<Key> *arbol = new AB<Key>;
+    AB<Key>* arbol;
+    //Establish(0, arbol);
+    //= new ABE<Key>;
+    //ABE<Key>* arbol = new ABE<Key>;
     std::cout << "Árbol vacío" << std::endl;
-    arbol->Imprimir();
+    arbol->AB<Key>::Imprimir();
 
     Key Clave;
 
