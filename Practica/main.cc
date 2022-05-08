@@ -38,7 +38,7 @@ int main() {
             if (arbol->buscar(Clave)) {
                 std::cout << "MATCH" << std::endl;
             } else {
-                std::cout << "NO ENCONTRADO" << std::endl;
+                std::cout << "EL ELEMENTO YA EXISTE" << std::endl;
             }
             break;
 

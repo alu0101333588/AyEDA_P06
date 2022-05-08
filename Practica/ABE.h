@@ -17,6 +17,9 @@ class ABE : public AB<Key> {
 
 template<class Key>
 bool ABE<Key>::insertar (const Key& k) {
+    if (buscar(k)) {
+        return false;
+    }
     if (AB<Key>::getRaiz() == NULL) {
         AB<Key>::setRaiz3(k);
     } else {
@@ -37,7 +40,7 @@ void ABE<Key>::insertarEquilRama(const Key& k, NodoB<Key> *nodo) {
             //nodo->getNodoIzq() = new NodoB<Key> (k);
             //nodo->setNodo(nodo->getNodoIzq(), k);
             nodo->setNodoIz(k);
-            std::cout << "INSERTAR IZQ... " << nodo->getDato() << "::" << nodo->getNodoIzq()->getDato() << std::endl;
+            //std::cout << "INSERTAR IZQ... " << nodo->getDato() << "::" << nodo->getNodoIzq()->getDato() << std::endl;
             
         }
     } else {
@@ -48,7 +51,7 @@ void ABE<Key>::insertarEquilRama(const Key& k, NodoB<Key> *nodo) {
             
             //nodo->setNodo(nodo->getNodoDer(), k);
             nodo->setNodoDe(k);
-            std::cout << "INSERTAR DER... " << nodo->getDato() << "::" << nodo->getNodoDer()->getDato() << std::endl;
+            //std::cout << "INSERTAR DER... " << nodo->getDato() << "::" << nodo->getNodoDer()->getDato() << std::endl;
         }
     }
 }
