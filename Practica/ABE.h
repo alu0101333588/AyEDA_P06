@@ -18,11 +18,9 @@ class ABE : public AB<Key> {
 template<class Key>
 bool ABE<Key>::insertar (const Key& k) {
     if (AB<Key>::getRaiz() == NULL) {
-        //AB<Key>::getRaiz() = new NodoB<Key> (k);
         AB<Key>::setRaiz3(k);
     } else {
         insertarEquilRama(k, AB<Key>::getRaiz());
-        std::cout << "PROTOCOLO 2" << std::endl;
     }
     return true; //
 }
@@ -33,18 +31,24 @@ void ABE<Key>::insertarEquilRama(const Key& k, NodoB<Key> *nodo) {
     int tam_der = AB<Key>::Tamano(nodo->getNodoDer());
 
     if (tam_izq <= tam_der) {
-        if (AB<Key>::getRaiz()->getNodoIzq() != NULL) {
+        if (nodo->getNodoIzq() != NULL) {
             insertarEquilRama(k, nodo->getNodoIzq());
         } else {
             //nodo->getNodoIzq() = new NodoB<Key> (k);
-            nodo->setNodo(nodo->getNodoIzq(), k);
+            //nodo->setNodo(nodo->getNodoIzq(), k);
+            nodo->setNodoIz(k);
+            std::cout << "INSERTAR IZQ... " << nodo->getDato() << "::" << nodo->getNodoIzq()->getDato() << std::endl;
+            
         }
     } else {
         if (nodo->getNodoDer() != NULL){
             insertarEquilRama(k, nodo->getNodoDer());
         } else {
             //nodo->getNodoDer() = new NodoB<Key> (k);
-            nodo->setNodo(nodo->getNodoDer(), k);
+            
+            //nodo->setNodo(nodo->getNodoDer(), k);
+            nodo->setNodoDe(k);
+            std::cout << "INSERTAR DER... " << nodo->getDato() << "::" << nodo->getNodoDer()->getDato() << std::endl;
         }
     }
 }

@@ -30,7 +30,8 @@ class AB {
         bool Equilibrado(NodoB<Key> *nodo);
         bool Equilibrado();
         const void inorden2(NodoB<Key> nodo) const;
-
+        //void setNodoIz(Key k);
+        //void setNodoDe(Key k);
 
     protected:
         void setRaiz2(Key nodo_padre, NodoB<Key> *nodo_hijo1 = NULL, NodoB<Key> *nodo_hijo2 = NULL);
@@ -39,6 +40,7 @@ class AB {
         NodoB<Key>* getRaiz() {return raiz_;}
         NodoB<Key> getRaiz2() {return raiz_;}
         int Nivel (NodoB<Key> *nodo);
+        
 
     private:
         NodoB<Key> *raiz_;
@@ -91,6 +93,7 @@ void AB<Key>::Imprimir() {
     Impresion(raiz_);
     std::cout << std::endl;
 }
+
 
 /*template<class Key>
 std::ostream& operator<<(std::ostream& os, const NodoB<Key> *raiz) {
