@@ -62,13 +62,15 @@ template<class Key>
 bool ABE<Key>::busqueda (const Key& k, NodoB<Key> *nodo) {
     if (nodo == NULL) {
         return false;
-    } else if (k == nodo->getDato()) {
-        return true;
-    } else if (k < nodo->getDato()) {
-        if (busqueda(k, nodo->getNodoIzq())) {
+    } else {
+        if (k == nodo->getDato()) {
             return true;
-        } else if (busqueda(k, nodo->getNodoDer())){
-            return true;
+        } else {
+            if (busqueda(k, nodo->getNodoIzq())){
+                return true;
+            } else {
+                return busqueda(k, nodo->getNodoDer());
+            }
         }
     }
     return false;

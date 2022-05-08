@@ -40,6 +40,7 @@ class AB {
         NodoB<Key>* getRaiz() {return raiz_;}
         NodoB<Key> getRaiz2() {return raiz_;}
         int Nivel (NodoB<Key> *nodo);
+        int Level ();
         
 
     private:
@@ -91,7 +92,6 @@ bool AB<Key>::Hoja(NodoB<Key> *nodo) {
 template<class Key>
 void AB<Key>::Imprimir() {
     Impresion(raiz_);
-    std::cout << std::endl;
 }
 
 
@@ -151,13 +151,21 @@ int AB<Key>::Nivel (NodoB<Key> *nodo) {
 
 }
 
+template<class Key>
+int AB<Key>::Level () {
+    return Nivel(raiz_);
+}
+
+
 
 template<class Key>
 void AB<Key>::Impresion(NodoB<Key> *raiz) {
     std::cout << "Impresión..." << std::endl;
 
-    int nivel = Nivel(raiz);
-    NodoB<Key> *nodo(0);
+    int nivel = Level();
+    //NodoB<Key> *nodo(0);
+
+    std::cout << "level: " << nivel << std::endl;
 
     for (int i = 1; i <= nivel+1; i++) {
         std::cout << "Nivel " << i-1 << ": ";
@@ -193,16 +201,16 @@ void AB<Key>::ImpresionNivel(NodoB<Key> *raiz, int nivel) {
 template<class Key>
 void AB<Key>::inorden() const {
     //inorden2(getRaiz2());
+    if (raiz_ == NULL) {
+        //inorden2(raiz_->getNodoIzq());
+        std::cout << "[" << raiz_->getDato() << "]";
+        //inorden2(raiz_->getNodoDer());
+    }
 }
 
 template<class Key>
 const void AB<Key>::inorden2(NodoB<Key> nodo) const {
-    if (nodo == NULL) {
-        inorden2(nodo->getRaiz()->getNodoIzq());
-        std::cout << "[" << nodo-> getDato() << "]";
-        inorden2(nodo->getNodoDer());
-
-    }
+    //nodo->inorden();
 }
 
 
@@ -250,7 +258,7 @@ bool AB<Key>::Equilibrado() {
 template<class Key>
 int AB<Key>::Tamano() {
     if (raiz_ != NULL) {
-        return (1 + Tamano(raiz_->getNodoDer()) + Tamano(raiz_->getNodoIzq()));
+        return (1 + Tamano(raiz_->getNodoIzq()) + Tamano(raiz_->getNodoDer()));
     }
     return 0;
 }
