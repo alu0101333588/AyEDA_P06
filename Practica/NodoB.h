@@ -6,14 +6,17 @@ class NodoB {
     public:
         NodoB (const Key& dat, NodoB *izq = NULL, NodoB *der = NULL) : dato_(dat), izdo_(izq), dcho_(der) {}
 
+        void setNodo(NodoB<Key> *nodo, Key valor);
+
         NodoB* getNodoIzq() {return izdo_;}
         NodoB* getNodoDer() {return dcho_;}
 
-        Key* getDato() {return dato_;}
+        Key getDato() {return dato_;}
 
-        void setNodoIzq(NodoB izq) {izdo_ = izq;}
-        void setNodoDer(NodoB der) {dcho_ = der;}
+        void setNodoIzq(NodoB *izq) {izdo_ = izq;}
+        void setNodoDer(NodoB *der) {dcho_ = der;}
         void setDato(Key dato) {dato_ = dato;}
+        
 
     private:
         Key dato_; 
@@ -21,3 +24,8 @@ class NodoB {
         NodoB *dcho_;
 
 };
+
+template<class Key>
+void NodoB<Key>::setNodo (NodoB<Key> *nodo, Key valor) {
+    nodo = new NodoB<Key> (valor);
+}

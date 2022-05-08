@@ -5,10 +5,7 @@ using Key = int;
 
 int main() {
     int opcion = -1;
-    AB<Key>* arbol;
-    //Establish(0, arbol);
-    //= new ABE<Key>;
-    //ABE<Key>* arbol = new ABE<Key>;
+    AB<Key>* arbol = new ABE<Key>;
     std::cout << "Árbol vacío" << std::endl;
     arbol->AB<Key>::Imprimir();
 
@@ -47,6 +44,10 @@ int main() {
 
         case 3:
             arbol->inorden();
+            break;
+
+        case 4: // TEMPORAL
+            arbol->Imprimir();
             break;
         
         default:

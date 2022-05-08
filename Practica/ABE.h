@@ -18,48 +18,52 @@ class ABE : public AB<Key> {
 template<class Key>
 bool ABE<Key>::insertar (const Key& k) {
     if (AB<Key>::getRaiz() == NULL) {
-        AB<Key>::setRaiz(k, NULL, NULL);
+        //AB<Key>::getRaiz() = new NodoB<Key> (k);
+        AB<Key>::setRaiz3(k);
     } else {
         insertarEquilRama(k, AB<Key>::getRaiz());
+        std::cout << "PROTOCOLO 2" << std::endl;
     }
-    return false; //
+    return true; //
 }
 
 template<class Key>
 void ABE<Key>::insertarEquilRama(const Key& k, NodoB<Key> *nodo) {
-    int tam_izq = nodo.AB<Key>::Tamano(nodo.AB<Key>::getRaiz()->getNodoIzq());
-    int tam_der = nodo.AB<Key>::Tamano(nodo.AB<Key>::getRaiz()->getNodoDer());
+    int tam_izq = AB<Key>::Tamano(nodo->getNodoIzq());
+    int tam_der = AB<Key>::Tamano(nodo->getNodoDer());
 
     if (tam_izq <= tam_der) {
         if (AB<Key>::getRaiz()->getNodoIzq() != NULL) {
-            insertarEquilRama(k, nodo.AB<Key>::getRaiz()->getNodoIzq());
+            insertarEquilRama(k, nodo->getNodoIzq());
         } else {
-            nodo.AB<Key>::getRaiz()->getNodoIzq() = new NodoB<Key> (k, NULL, NULL);
+            //nodo->getNodoIzq() = new NodoB<Key> (k);
+            nodo->setNodo(nodo->getNodoIzq(), k);
         }
     } else {
-        if (nodo.AB<Key>::getRaiz()->getNodoDer() != NULL){
-            insertarEquilRama(k, nodo.AB<Key>::getRaiz()->getNodoDer());
+        if (nodo->getNodoDer() != NULL){
+            insertarEquilRama(k, nodo->getNodoDer());
         } else {
-            nodo.AB<Key>::getRaiz()->getNodoDer() = new NodoB<Key> (k, NULL, NULL);
+            //nodo->getNodoDer() = new NodoB<Key> (k);
+            nodo->setNodo(nodo->getNodoDer(), k);
         }
     }
 }
 
 template<class Key>
 bool ABE<Key>::buscar (const Key& k) {
-    return busqueda(AB<Key>::getRaiz(), k);
+    return busqueda(k, AB<Key>::getRaiz());
 }
 
 template<class Key>
 bool ABE<Key>::busqueda (const Key& k, NodoB<Key> *nodo) {
     if (nodo == NULL) {
         return false;
-    } else if (k == nodo.AB<Key>::getRaiz()->getDato()) {
+    } else if (k == nodo->getDato()) {
         return true;
-    } else if (k < nodo.AB<Key>::getRaiz()->getDato()) {
-        if (busqueda(k, nodo.AB<Key>::getRaiz()->getNodoIzq())) {
+    } else if (k < nodo->getDato()) {
+        if (busqueda(k, nodo->getNodoIzq())) {
             return true;
-        } else if (busqueda(k, nodo.AB<Key>::getRaiz()->getNodoDer())){
+        } else if (busqueda(k, nodo->getNodoDer())){
             return true;
         }
     }
