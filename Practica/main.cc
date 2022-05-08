@@ -12,10 +12,12 @@ int main() {
     Key Clave;
 
     while (opcion != 0) {
+        std::cout << "-------------------------" << std::endl;
         std::cout << "[0] Salir" << std::endl;
         std::cout << "[1] Insertar clave" << std::endl;
         std::cout << "[2] Buscar clave" << std::endl;
         std::cout << "[3] Mostrar árbol inorden" << std::endl;
+        std::cout << "-------------------------" << std::endl;
 
         std::cin >> opcion;
 

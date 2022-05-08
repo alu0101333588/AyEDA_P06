@@ -29,7 +29,7 @@ class AB {
 
         bool Equilibrado(NodoB<Key> *nodo);
         bool Equilibrado();
-        const void inorden2(NodoB<Key> nodo) const;
+        void inorden2(NodoB<Key> nodo) const;
         //void setNodoIz(Key k);
         //void setNodoDe(Key k);
 
@@ -39,6 +39,7 @@ class AB {
         void setRaiz(NodoB<Key> raiz) {raiz_ = raiz;}
         NodoB<Key>* getRaiz() {return raiz_;}
         NodoB<Key> getRaiz2() {return raiz_;}
+        NodoB<Key> getRaiz2() const {return raiz_;}
         int Nivel (NodoB<Key> *nodo);
         
 
@@ -142,8 +143,6 @@ int AB<Key>::Nivel (NodoB<Key> *nodo) {
     int nivel_izq = Nivel(nodo->getNodoIzq());
     int nivel_der = Nivel(nodo->getNodoDer());
 
-    std::cout << "LEVEL: " << ":" << nivel_izq << " :: " << ":" << nivel_der << std::endl;
-
     if (nivel_der > nivel_izq) {
         return nivel_der + 1;
     } else {
@@ -158,9 +157,6 @@ template<class Key>
 void AB<Key>::Impresion(NodoB<Key> *raiz) {
 
     int nivel = Nivel(raiz_);
-    //NodoB<Key> *nodo(0);
-
-    std::cout << "[level: " << nivel << "]" << std::endl;
 
     for (int i = 1; i <= nivel+1; i++) {
         std::cout << "Nivel " << i-1 << ": ";
@@ -187,7 +183,6 @@ void AB<Key>::ImpresionNivel(NodoB<Key> *raiz, int nivel) {
         std::cout << "["<< raiz->getDato() << "]";
 
     } else if (nivel > 1) {
-        //std::cout << "ImpresionNivel::" << nivel-1 << std::endl;
         ImpresionNivel(raiz->getNodoIzq(), nivel-1); // -1
         ImpresionNivel(raiz->getNodoDer(), nivel-1);
     }
@@ -198,15 +193,23 @@ template<class Key>
 void AB<Key>::inorden() const {
     //inorden2(getRaiz2());
     if (raiz_ == NULL) {
-        //inorden2(raiz_->getNodoIzq());
-        std::cout << "[" << raiz_->getDato() << "]";
-        //inorden2(raiz_->getNodoDer());
+        return;
+        /*inorden2(getRaiz2());
+        //std::cout << "[" << raiz_->getDato() << "]";
+        //inorden2(raiz_->getNodoDer());*/
     }
+    std::cout << "What a Level" << std::endl;
+    raiz_->inordenNodo();
 }
 
 template<class Key>
-const void AB<Key>::inorden2(NodoB<Key> nodo) const {
+void AB<Key>::inorden2(NodoB<Key> nodo) const {
     //nodo->inorden();
+    /*if (getRaiz2() == NULL) {
+        inorden2(getRaiz2()->getNodoIzq());
+        std::cout << "[" << raiz_->getDato() << "]";
+        inorden2(getRaiz2()->getNodoDer());
+    }*/
 }
 
 

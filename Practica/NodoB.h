@@ -21,9 +21,9 @@ class NodoB {
 
         void setNodoIz(Key k);
         void setNodoDe(Key k);
+        void inordenNodo();
+        void inordenNodo2(NodoB<Key> *nodo);
 
-
-        
 
     private:
         Key dato_; 
@@ -57,4 +57,21 @@ void NodoB<Key>::setNodoIz(Key k) {
 template<class Key>
 void NodoB<Key>::setNodoDe(Key k) {
     dcho_ = new NodoB<Key> (k);
+}
+
+template<class Key>
+void NodoB<Key>::inordenNodo() {
+    inordenNodo2(this);
+    std::cout << std::endl;
+}
+
+template<class Key>
+void NodoB<Key>::inordenNodo2(NodoB<Key> *nodo) {
+    if (nodo == NULL) {
+        return;
+    }
+
+    inordenNodo2(nodo->getNodoIzq());
+    std::cout << "[" << nodo->getDato() << "] ";    
+    inordenNodo2(nodo->getNodoDer());
 }
