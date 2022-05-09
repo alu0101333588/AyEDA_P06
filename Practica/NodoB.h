@@ -34,7 +34,6 @@ class NodoB {
 
 template<class Key>
 void NodoB<Key>::setNodo (Key k) {
-    //nodo = new NodoB<Key> (valor);
     dato_ = new NodoB<Key> (k);
 }
 

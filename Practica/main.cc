@@ -11,6 +11,8 @@ int main() {
 
     Key Clave;
 
+    std::cout << arbol << std::endl;
+
     while (opcion != 0) {
         std::cout << "-------------------------" << std::endl;
         std::cout << "[0] Salir" << std::endl;
@@ -48,8 +50,16 @@ int main() {
             arbol->inorden();
             break;
 
-        case 4: // TEMPORAL
+        case 4:
             arbol->Imprimir();
+            break;
+        
+        case 5:
+            try {
+                arbol->eliminar(Clave);
+            } catch (const char* message) {
+                std::cerr << message << std::endl;
+            }
             break;
         
         default:

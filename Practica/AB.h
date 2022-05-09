@@ -14,8 +14,10 @@ class AB {
 
         virtual bool insertar (const Key& k) = 0;
         virtual bool buscar (const Key& k) = 0;
+        virtual void eliminar (Key& k) = 0;
+
         void inorden() const;
-        //friend std::ostream& operator<<(std::ostream& os, const NodoB<Key> *raiz);
+        friend std::ostream& operator<<(std::ostream& os, const AB<Key> *raiz);
         void Impresion(NodoB<Key> *raiz);
         void ImpresionNivel(NodoB<Key> *raiz, int nivel);
         void Imprimir();
@@ -30,8 +32,7 @@ class AB {
         bool Equilibrado(NodoB<Key> *nodo);
         bool Equilibrado();
         void inorden2(NodoB<Key> nodo) const;
-        //void setNodoIz(Key k);
-        //void setNodoDe(Key k);
+
 
     protected:
         void setRaiz2(Key nodo_padre, NodoB<Key> *nodo_hijo1 = NULL, NodoB<Key> *nodo_hijo2 = NULL);
@@ -47,6 +48,15 @@ class AB {
         NodoB<Key> *raiz_;
         
 };
+
+
+template<class Key>
+std::ostream& operator<<(std::ostream& os, const AB<Key> *raiz) {
+    os << "Hola" << std::endl;
+    return os;
+
+}
+
 
 template<class Key>
 void AB<Key>::setRaiz2(Key nodo_padre, NodoB<Key> *nodo_hijo1, NodoB<Key> *nodo_hijo2) {
@@ -97,40 +107,6 @@ void AB<Key>::Imprimir() {
 
 /*template<class Key>
 std::ostream& operator<<(std::ostream& os, const NodoB<Key> *raiz) {
-    os << "PRUEBAS" << std::endl;
-    return os;
-    std::queue<Key> Q;
-    std::queue<int> Q2;
-    NodoB<Key> *nodo;
-    int nivel, nivel_actual = 0;
-    Q.push_back(raiz);
-    Q2.push_back(0);
-
-    while (!Q.empty()) {
-        nodo = Q.front();
-        nivel = Q2.front();
-        Q.pop_front();
-        Q2.pop_front();
-
-        if (nivel > nivel_actual) {
-            nivel_actual = nivel;
-        }
-
-        if (nodo != NULL) {
-            Buscar(nodo);
-            Q.push_back(nodo->izdo_);
-            Q2.push_back(nivel+1);
-
-            Q.push_back(nodo->dcho_);
-            Q2.push_back(nivel+1);
-
-        } 
-    }
-    
-    // push_back(), pop_front(), back(), front(), size(), empty()
-
-
-    //void printNivel(nodoB<Clave>* nodo, int nivel, nodoB<Clave>* nodo_anterior) {
 
 }*/
 
@@ -198,7 +174,6 @@ void AB<Key>::inorden() const {
         //std::cout << "[" << raiz_->getDato() << "]";
         //inorden2(raiz_->getNodoDer());*/
     }
-    std::cout << "What a Level" << std::endl;
     raiz_->inordenNodo();
 }
 
