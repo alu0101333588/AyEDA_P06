@@ -2,9 +2,7 @@
 #include "AB.h"
 #include <iostream>
 #include <fstream>
-//#include "NodoB.h"
 
-//template<class Key> class NodoB;
 
 template<class Key>
 class ABE : public AB<Key> {
@@ -33,7 +31,7 @@ bool ABE<Key>::insertar (const Key& k) {
     } else {
         insertarEquilRama(k, AB<Key>::getRaiz());
     }
-    return true; //
+    return true; 
 }
 
 template<class Key>
@@ -45,21 +43,13 @@ void ABE<Key>::insertarEquilRama(const Key& k, NodoB<Key> *nodo) {
         if (nodo->getNodoIzq() != NULL) {
             insertarEquilRama(k, nodo->getNodoIzq());
         } else {
-            //nodo->getNodoIzq() = new NodoB<Key> (k);
-            //nodo->setNodo(nodo->getNodoIzq(), k);
             nodo->setNodoIz(k);
-            //std::cout << "INSERTAR IZQ... " << nodo->getDato() << "::" << nodo->getNodoIzq()->getDato() << std::endl;
-            
         }
     } else {
         if (nodo->getNodoDer() != NULL){
             insertarEquilRama(k, nodo->getNodoDer());
-        } else {
-            //nodo->getNodoDer() = new NodoB<Key> (k);
-            
-            //nodo->setNodo(nodo->getNodoDer(), k);
+        } else {            
             nodo->setNodoDe(k);
-            //std::cout << "INSERTAR DER... " << nodo->getDato() << "::" << nodo->getNodoDer()->getDato() << std::endl;
         }
     }
 }

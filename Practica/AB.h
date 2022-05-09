@@ -2,9 +2,6 @@
 #include "NodoB.h"
 #include <iostream>
 #include <fstream>
-//#include <queue>
-
-//template<Class Key> class NodoB;
 
 template<class Key>
 class AB {
@@ -17,9 +14,9 @@ class AB {
         virtual void eliminar (Key& k) = 0;
 
         void inorden() const;
-        //friend std::ostream& operator<<(std::ostream& os, const AB<Key> *raiz);
-        void Impresion(NodoB<Key> *raiz);
-        void ImpresionNivel(NodoB<Key> *raiz, int nivel);
+        
+        void Impresion(std::ostream& os, NodoB<Key> *raiz);
+        void ImpresionNivel(std::ostream& os, NodoB<Key> *raiz, int nivel);
         void Imprimir();
         void Podar(NodoB<Key>* nodo);
 
@@ -31,14 +28,13 @@ class AB {
 
         bool Equilibrado(NodoB<Key> *nodo);
         bool Equilibrado();
-        void inorden2(NodoB<Key> nodo) const;
-
+        NodoB<Key>* getRaiz() {return raiz_;}
 
     protected:
         void setRaiz2(Key nodo_padre, NodoB<Key> *nodo_hijo1 = NULL, NodoB<Key> *nodo_hijo2 = NULL);
         void setRaiz3(Key nodo_padre);
         void setRaiz(NodoB<Key> raiz) {raiz_ = raiz;}
-        NodoB<Key>* getRaiz() {return raiz_;}
+        
         NodoB<Key> getRaiz2() {return raiz_;}
         NodoB<Key> getRaiz2() const {return raiz_;}
         int Nivel (NodoB<Key> *nodo);
@@ -49,13 +45,13 @@ class AB {
         
 };
 
-
-/*template<class Key>
-std::ostream& operator<<(std::ostream& os, const AB<Key> *raiz) {
-    os << "Hola" << std::endl;
+template<class Key>
+std::ostream& operator<<(std::ostream& os, AB<Key> *raiz) {
+    NodoB<Key> *nodo = raiz->getRaiz();
+    raiz->Impresion(os, nodo);
     return os;
 
-}*/
+}
 
 
 template<class Key>
@@ -68,7 +64,6 @@ void AB<Key>::setRaiz2(Key nodo_padre, NodoB<Key> *nodo_hijo1, NodoB<Key> *nodo_
 template<class Key>
 void AB<Key>::setRaiz3(Key nodo_padre) {
     raiz_ = new NodoB<Key> (nodo_padre);
-    //raiz_->setNodo(raiz_, nodo_padre);
 }
 
 template<class Key>
@@ -101,14 +96,8 @@ bool AB<Key>::Hoja(NodoB<Key> *nodo) {
 
 template<class Key>
 void AB<Key>::Imprimir() {
-    Impresion(raiz_);
+    Impresion(std::cout, raiz_);
 }
-
-
-/*template<class Key>
-std::ostream& operator<<(std::ostream& os, const NodoB<Key> *raiz) {
-
-}*/
 
 template<class Key>
 int AB<Key>::Nivel (NodoB<Key> *nodo) {
@@ -130,25 +119,26 @@ int AB<Key>::Nivel (NodoB<Key> *nodo) {
 
 
 template<class Key>
-void AB<Key>::Impresion(NodoB<Key> *raiz) {
+void AB<Key>::Impresion(std::ostream& os, NodoB<Key> *raiz) {
 
-    int nivel = Nivel(raiz_);
+    //int nivel = Nivel(raiz_);
+    int nivel = Nivel(raiz);
 
     for (int i = 1; i <= nivel+1; i++) {
-        std::cout << "Nivel " << i-1 << ": ";
-        ImpresionNivel(raiz, i);
-        std::cout << std::endl;
+        os << "Nivel " << i-1 << ": ";
+        ImpresionNivel(os, raiz, i);
+        os << std::endl;
     }
 
 
 }
 
 template<class Key>
-void AB<Key>::ImpresionNivel(NodoB<Key> *raiz, int nivel) {
+void AB<Key>::ImpresionNivel(std::ostream& os, NodoB<Key> *raiz, int nivel) {
     
     if (raiz == NULL) {
         if (nivel < 2) {
-            std::cout << "[.]";
+            os << "[.]";
             return;
         } else {
             return;
@@ -156,39 +146,22 @@ void AB<Key>::ImpresionNivel(NodoB<Key> *raiz, int nivel) {
     }
 
     if (nivel == 1) {
-        std::cout << "["<< raiz->getDato() << "]";
+        os << "["<< raiz->getDato() << "]";
 
     } else if (nivel > 1) {
-        ImpresionNivel(raiz->getNodoIzq(), nivel-1); // -1
-        ImpresionNivel(raiz->getNodoDer(), nivel-1);
+        ImpresionNivel(os, raiz->getNodoIzq(), nivel-1); // -1
+        ImpresionNivel(os, raiz->getNodoDer(), nivel-1);
     }
 }
 
 
 template<class Key>
 void AB<Key>::inorden() const {
-    //inorden2(getRaiz2());
     if (raiz_ == NULL) {
         return;
-        /*inorden2(getRaiz2());
-        //std::cout << "[" << raiz_->getDato() << "]";
-        //inorden2(raiz_->getNodoDer());*/
     }
     raiz_->inordenNodo();
 }
-
-template<class Key>
-void AB<Key>::inorden2(NodoB<Key> nodo) const {
-    //nodo->inorden();
-    /*if (getRaiz2() == NULL) {
-        inorden2(getRaiz2()->getNodoIzq());
-        std::cout << "[" << raiz_->getDato() << "]";
-        inorden2(getRaiz2()->getNodoDer());
-    }*/
-}
-
-
-
 
 
 

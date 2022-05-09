@@ -7,11 +7,11 @@ int main() {
     int opcion = -1;
     AB<Key>* arbol = new ABE<Key>;
     std::cout << "Árbol vacío" << std::endl;
-    arbol->AB<Key>::Imprimir();
+    //arbol->AB<Key>::Imprimir();
+    std::cout << arbol << std::endl;
 
     Key Clave;
 
-    //std::cout << arbol << std::endl;
 
     while (opcion != 0) {
         std::cout << "-------------------------" << std::endl;
@@ -27,9 +27,10 @@ int main() {
         case 1:
             std::cout << "Clave (Insertar): ";
             std::cin >> Clave;
-            std::cout << "Insertar: " << Clave << std::endl;
+            std::cout << "Insertar: " << Clave << std::endl << std::endl;
             if (arbol->insertar(Clave)) {
-                arbol->Imprimir();
+                std::cout << arbol << std::endl;
+                //arbol->Imprimir();
             } else {
                 std::cout << "ELEMENTO REPETIDO" << std::endl;
             }
@@ -42,7 +43,7 @@ int main() {
             if (arbol->buscar(Clave)) {
                 std::cout << "MATCH" << std::endl;
             } else {
-                std::cout << "EL ELEMENTO YA EXISTE" << std::endl;
+                std::cout << "NO EXISTE" << std::endl;
             }
             break;
 
@@ -51,7 +52,8 @@ int main() {
             break;
 
         case 4:
-            arbol->Imprimir();
+            std::cout << arbol << std::endl;
+            //arbol->Imprimir();
             break;
         
         case 5:

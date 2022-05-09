@@ -15,8 +15,6 @@ class NodoB {
 
         Key getDato() {return dato_;}
 
-        //void setNodoIzq(NodoB *izq) {izdo_ = izq;}
-        //void setNodoDer(NodoB *der) {dcho_ = der;}
         void setDato(Key dato) {dato_ = dato;}
 
         void setNodoIz(Key k);
@@ -36,17 +34,6 @@ template<class Key>
 void NodoB<Key>::setNodo (Key k) {
     dato_ = new NodoB<Key> (k);
 }
-
-/*template<class Key>
-NodoB<Key>* NodoB<Key>::setNodo2(Key valor) {
-    std::cout << "setNodo2::" << valor << std::endl;
-    NodoB<Key> *raiz; //= new NodoB<Key> (valor);
-    raiz = new NodoB<Key> (valor);
-    //setNodo(raiz, valor);
-    //raiz->setDato(valor);
-    std::cout << "VERIFICA " << raiz->getDato() << " :: " << std::endl;
-    return raiz;
-}*/
 
 template<class Key>
 void NodoB<Key>::setNodoIz(Key k) {
