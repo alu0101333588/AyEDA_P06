@@ -17,7 +17,7 @@ class AB {
         virtual void eliminar (Key& k) = 0;
 
         void inorden() const;
-        friend std::ostream& operator<<(std::ostream& os, const AB<Key> *raiz);
+        //friend std::ostream& operator<<(std::ostream& os, const AB<Key> *raiz);
         void Impresion(NodoB<Key> *raiz);
         void ImpresionNivel(NodoB<Key> *raiz, int nivel);
         void Imprimir();
@@ -50,12 +50,12 @@ class AB {
 };
 
 
-template<class Key>
+/*template<class Key>
 std::ostream& operator<<(std::ostream& os, const AB<Key> *raiz) {
     os << "Hola" << std::endl;
     return os;
 
-}
+}*/
 
 
 template<class Key>
