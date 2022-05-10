@@ -37,20 +37,13 @@ bool ABE<Key>::insertar (const Key& k) {
 template<class Key>
 void ABE<Key>::insertarEquilRama(const Key& k, NodoB<Key> *nodo) {
     int tam_izq = AB<Key>::Tamano(nodo->getNodoIzq());
-    int tam_cen = AB<Key>::Tamano(nodo->getNodoCen());
     int tam_der = AB<Key>::Tamano(nodo->getNodoDer());
 
-    if (tam_izq <= tam_der && tam_izq <= tam_cen) {
+    if (tam_izq <= tam_der) {
         if (nodo->getNodoIzq() != NULL) {
             insertarEquilRama(k, nodo->getNodoIzq());
         } else {
             nodo->setNodoIz(k);
-        }
-    } else if (tam_cen <= tam_der && tam_cen <= tam_izq) {
-        if (nodo->getNodoCen() != NULL) {
-            insertarEquilRama(k, nodo->getNodoCen());
-        } else {
-            nodo->setNodoCe(k);
         }
     } else {
         if (nodo->getNodoDer() != NULL){
@@ -76,11 +69,9 @@ bool ABE<Key>::busqueda (const Key& k, NodoB<Key> *nodo) {
         } else {
             if (busqueda(k, nodo->getNodoIzq())){
                 return true;
+            } else {
+                return busqueda(k, nodo->getNodoDer());
             }
-            if (busqueda(k, nodo->getNodoDer())) {
-                return true;
-            }
-            return busqueda(k, nodo->getNodoCen());
         }
     }
     return false;

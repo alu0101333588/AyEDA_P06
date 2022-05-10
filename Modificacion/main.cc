@@ -1,16 +1,21 @@
 #include <iostream>
 #include "ABE.h"
+#include "dummy.h"
 
-using Key = int;
+//using Key = Dummy;
+//using Key = int;
 
 int main() {
     int opcion = -1;
-    AB<Key>* arbol = new ABE<Key>;
+    AB<Dummy>* arbol = new ABE<Dummy>;
     std::cout << "Árbol vacío" << std::endl;
     //arbol->AB<Key>::Imprimir();
     std::cout << arbol << std::endl;
 
-    Key Clave;
+    //Key Clave;
+    Dummy Clave (5, 10); 
+    //= {5, 10};
+    //arbol->insertar(Clave);
 
 
     while (opcion != 0) {

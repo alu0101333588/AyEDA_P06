@@ -31,7 +31,7 @@ class AB {
         NodoB<Key>* getRaiz() {return raiz_;}
 
     protected:
-        void setRaiz2(Key nodo_padre, NodoB<Key> *nodo_hijo1 = NULL, NodoB<Key> *nodo_hijo2 = NULL, NodoB<Key> *nodo_hijo3 = NULL);
+        void setRaiz2(Key nodo_padre, NodoB<Key> *nodo_hijo1 = NULL, NodoB<Key> *nodo_hijo2 = NULL);
         void setRaiz3(Key nodo_padre);
         void setRaiz(NodoB<Key> raiz) {raiz_ = raiz;}
         
@@ -53,13 +53,19 @@ std::ostream& operator<<(std::ostream& os, AB<Key> *raiz) {
 
 }
 
+/*template<class Key>
+Key& operator[](const Key& k) {
+    std::cout << "prueba: " << k << std::endl;
+    return k;
+
+}*/
+
 
 template<class Key>
-void AB<Key>::setRaiz2(Key nodo_padre, NodoB<Key> *nodo_hijo1, NodoB<Key> *nodo_hijo2, NodoB<Key> *nodo_hijo3) {
+void AB<Key>::setRaiz2(Key nodo_padre, NodoB<Key> *nodo_hijo1, NodoB<Key> *nodo_hijo2) {
     raiz_->setDato(nodo_padre);
     raiz_->setNodoDer(nodo_hijo1);
     raiz_->setNodoIzq(nodo_hijo2);
-    raiz_->setNodoCen(nodo_hijo3);
 }
 
 template<class Key>
@@ -74,7 +80,6 @@ void AB<Key>::Podar(NodoB<Key>* nodo) {
     }
 
     Podar(nodo->getNodoIzq());
-    Podar(nodo->getNodoCen());
     Podar(nodo->getNodoDer());
     delete nodo;
     nodo = NULL;
@@ -90,7 +95,7 @@ bool AB<Key>::Vacio(NodoB<Key> *nodo) {
 
 template<class Key>
 bool AB<Key>::Hoja(NodoB<Key> *nodo) {
-    if (!(nodo->getNodoDer()) && !(nodo->getNodoIzq()) && !(nodo->getNodoCen())) {
+    if (!(nodo->getNodoDer()) && !(nodo->getNodoIzq())) {
         return true;
     }
     return false;
@@ -108,15 +113,12 @@ int AB<Key>::Nivel (NodoB<Key> *nodo) {
     } 
 
     int nivel_izq = Nivel(nodo->getNodoIzq());
-    int nivel_cen = Nivel(nodo->getNodoCen());
     int nivel_der = Nivel(nodo->getNodoDer());
 
     if (nivel_der > nivel_izq) {
         return nivel_der + 1;
-    } else if (nivel_izq > nivel_cen) {
-        return nivel_izq + 1;
     } else {
-        return nivel_cen + 1;
+        return nivel_izq + 1;
     }
     
 
@@ -154,8 +156,7 @@ void AB<Key>::ImpresionNivel(std::ostream& os, NodoB<Key> *raiz, int nivel) {
         os << "["<< raiz->getDato() << "]";
 
     } else if (nivel > 1) {
-        ImpresionNivel(os, raiz->getNodoIzq(), nivel-1);
-        ImpresionNivel(os, raiz->getNodoCen(), nivel-1);
+        ImpresionNivel(os, raiz->getNodoIzq(), nivel-1); // -1
         ImpresionNivel(os, raiz->getNodoDer(), nivel-1);
     }
 }
@@ -178,7 +179,7 @@ bool AB<Key>::Equilibrado(NodoB<Key> *nodo) {
     if (nodo == NULL) {
         return true;
     }
-    int equilibrio = Tamano(nodo->getNodoIzq()) - Tamano(nodo->getNodoDer());
+    int equilibrio = Tamano(nodo->izdo_) - Tamano(nodo->getNodoDer());
     if (equilibrio == 1) {
         return (Equilibrado(nodo->izdo_) && Equilibrado(nodo->getNodoDer()));
     } 
@@ -190,7 +191,7 @@ bool AB<Key>::Equilibrado(NodoB<Key> *nodo) {
 template<class Key>
 int AB<Key>::Tamano(NodoB<Key> *nodo) {
     if (nodo != NULL) {
-        return (1 + Tamano(nodo->getNodoDer()) + Tamano(nodo->getNodoIzq()) + Tamano(nodo->getNodoCen()));
+        return (1 + Tamano(nodo->getNodoDer()) + Tamano(nodo->getNodoIzq()));
     }
     return 0;
 }
@@ -211,7 +212,7 @@ bool AB<Key>::Equilibrado() {
 template<class Key>
 int AB<Key>::Tamano() {
     if (raiz_ != NULL) {
-        return (1 + Tamano(raiz_->getNodoIzq()) + Tamano(raiz_->getNodoDer()) + Tamano(raiz_->getNodoCen()));
+        return (1 + Tamano(raiz_->getNodoIzq()) + Tamano(raiz_->getNodoDer()));
     }
     return 0;
 }
